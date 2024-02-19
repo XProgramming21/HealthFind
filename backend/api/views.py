@@ -50,6 +50,15 @@ def signUpAPIView(request):
     return Response(res, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-def createPatient(request):
-    pass
+def createAPIPatient(request):
+    serializer = createPatientSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return  Response('true')
+    
+    return Response(status = status.HTTP_400_BAD_REQUEST)
+    
+
+
+
 

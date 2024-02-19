@@ -21,7 +21,7 @@ class SignupSerializer(serializers.ModelSerializer):
             model = get_user_model()
             fields = ['login','password']
 
-class PatientSerializer(serializers.ModelSerializer):
+class createPatientSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = Patient
@@ -29,9 +29,19 @@ class PatientSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         patient_data = validated_data.pop('patient')
-        user = get_user_model().objects.create(**validated_data)
-        patient = Patient.objects.create(user=user, **patient_data)
+        # user = get_user_model().objects.create(**validated_data)
+        serializer = SignupSerializer(**validated_data)
+        if serializer.isValid():
+            user = serializer.save()
+            patient = Patient.objects.create(user=user, **patient_data)
 
         return patient
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = '__all__'
+    
 
 

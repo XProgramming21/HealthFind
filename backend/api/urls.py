@@ -5,6 +5,6 @@ from api import views
 
 
 urlpatterns = [
-
-    path('login', views.loginAPIView),
+    path('login', views.loginAPIView, name='loginUser'),
+    path('create_patient', views.createAPIPatient, name='createPatient'),
 ]
