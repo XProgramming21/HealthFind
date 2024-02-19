@@ -37,3 +37,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.login
+    
+class Patient(models.Model):
+    user = models.OneToOneField(User, related_name="patient", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    lastName = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.IntegerField()
+    old = models.IntegerField()
+    tall = models.IntegerField()
+    weight = models.IntegerField()
+    bloodGroup = models.CharField(max_length=255)
+    sex = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+
+
+

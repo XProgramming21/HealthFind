@@ -34,3 +34,22 @@ def loginAPIView(request):
         
     return Response('erer')
 
+
+
+@api_view(['POST'])
+def signUpAPIView(request):
+    serializer = SignupSerializer(data = request.data)
+    if serializer.isValid():
+
+
+        serializer.save()
+        res = { 'status' : status.HTTP_201_CREATED }
+        return Response(res, status = status.HTTP_201_CREATED)
+    
+    res = { 'status' : status.HTTP_400_BAD_REQUEST, 'data' : serializer.errors }
+    return Response(res, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def createPatient(request):
+    pass
+
