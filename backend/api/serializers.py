@@ -28,9 +28,10 @@ class PatientSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def create(self, validated_data):
-        user = validated_data.pop('user')
-        u = User.objects.create(**validated_data)
-        Patient.objects.create(user=user, **profile_data)
-        return user
+        patient_data = validated_data.pop('patient')
+        user = get_user_model().objects.create(**validated_data)
+        patient = Patient.objects.create(user=user, **patient_data)
+
+        return patient
 
 
