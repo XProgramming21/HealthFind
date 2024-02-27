@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.login
     
 class Patient(models.Model):
-    user = models.OneToOneField(User, related_name="patient", on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="patient",null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     lastName = models.CharField(max_length=255)
     email = models.EmailField()
